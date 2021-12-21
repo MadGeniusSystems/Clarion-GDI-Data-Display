@@ -1,0 +1,124 @@
+[PROCEDURE]
+NAME Update_Invoices
+CATEGORY 'Form'
+[COMMON]
+DESCRIPTION 'Form Invoices'
+FROM ABC Window
+[DATA]
+CurrentTab                STRING(80)
+[FILES]
+[PRIMARY]
+Invoices
+[INSTANCE]
+2
+[PROMPTS]
+%ButtonAction DEPEND %Control STRING TIMES 0
+
+%ButtonRunName DEPEND %Control STRING TIMES 0
+
+%ButtonRunParameters DEPEND %Control STRING TIMES 0
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%ButtonThread DEPEND %Control LONG TIMES 0
+
+%ButtonThreadStack DEPEND %Control @n7 TIMES 0
+
+%ButtonParameters DEPEND %Control STRING TIMES 0
+
+%ButtonRequest DEPEND %Control STRING TIMES 0
+
+%PreLookupKey DEPEND %Control KEY TIMES 0
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PostLookupKey DEPEND %Control KEY TIMES 0
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 0
+[ADDITION]
+NAME ABC RecordValidation
+[INSTANCE]
+INSTANCE 1
+PROCPROP
+[PROMPTS]
+%ValidateOnAccept LONG  (1)
+%ValidateOnNonStopSelect LONG  (1)
+%ControlsExcluded MULTI LONG  ()
+%ControlToExclude DEPEND %ControlsExcluded STRING TIMES 0
+[ADDITION]
+NAME ABC SaveButton
+[INSTANCE]
+INSTANCE 2
+PROCPROP
+[PROMPTS]
+%InsertAllowed LONG  (1)
+%InsertMessage @S40  ('Record Will Be Added')
+%ChangeAllowed LONG  (1)
+%ChangeMessage @S40  ('Record Will Be Changed')
+%DeleteAllowed LONG  (1)
+%DeleteMessage @S40  ('Record Will Be Deleted')
+%ViewMessage @S40  ('View Record')
+%MessageHeader LONG  (0)
+%ActionOnDelete STRING  ('Standard Warning')
+%PrimingFields MULTI LONG  ()
+%PrimedField DEPEND %PrimingFields FIELD TIMES 0
+
+%PrimedValue DEPEND %PrimingFields @S255 TIMES 0
+
+%ActionOnCancel STRING  ('Confirm cancel')
+%MessageLocation STRING  ('Title Bar')
+%MessageStatusSection @n1  (0)
+
+%HistoryKey        DEFAULT (CtrlH)
+
+%AppendToTitle LONG  ()
+%AppendToTitleID @S255  ('')
+[ADDITION]
+NAME ABC CancelButton
+[INSTANCE]
+INSTANCE 3
+[ADDITION]
+NAME ABC ViewFormActions
+[INSTANCE]
+INSTANCE 4
+[ADDITION]
+NAME ABC WindowResize
+[INSTANCE]
+INSTANCE 5
+[PROMPTS]
+%UseAppStrategy    DEFAULT (1)
+%AppStrategy       DEFAULT ('Surface')
+%RestrictMinSize   DEFAULT (1)
+%WindowMinWidth    DEFAULT (0)
+%WindowMaxWidth    DEFAULT (0)
+[WINDOW]
+QuickWindow WINDOW('Form Invoices'),AT(,,358,154),RESIZE,IMM,GRAY,MDI,HLP('Update_Invoices'),FONT('Microsoft Sans Serif',8,,400,1),CENTER,SYSTEM
+  SHEET,AT(4,4,350,128),USE(?CurrentTab),#ORIG(CurrentTab)
+    TAB('&1) General'),USE(?Tab:1)
+         PROMPT('Invoice Sequence:'),USE(?INV:Invoice_Sequence:Prompt),TRN,AT(8,20),#ORIG(?INV:Invoice_Sequence:Prompt),#LINK(INV:Invoice_Sequence)
+         ENTRY(@n-14),USE(INV:Invoice_Sequence),RIGHT(1),AT(80,20,64,10),#ORIG(INV:Invoice_Sequence),#LINK(?INV:Invoice_Sequence:Prompt)
+         PROMPT('Name:'),USE(?INV:Name:Prompt),TRN,AT(8,34),#ORIG(?INV:Name:Prompt),#LINK(INV:Name)
+         ENTRY(@s255),USE(INV:Name),AT(80,34,270,10),#ORIG(INV:Name),#LINK(?INV:Name:Prompt)
+         PROMPT('Date:'),USE(?INV:Date:Prompt),TRN,AT(8,48),#ORIG(?INV:Date:Prompt),#LINK(INV:Date)
+         ENTRY(@d6),USE(INV:Date),AT(80,48,104,10),#ORIG(INV:Date),#LINK(?INV:Date:Prompt)
+         PROMPT('Sub Total:'),USE(?INV:SubTotal:Prompt),TRN,AT(8,62),#ORIG(?INV:SubTotal:Prompt),#LINK(INV:SubTotal)
+         ENTRY(@N$-17.2),USE(INV:SubTotal),DECIMAL(12),AT(80,62,104,10),#ORIG(INV:SubTotal),#LINK(?INV:SubTotal:Prompt)
+         PROMPT('TAX:'),USE(?INV:TAX:Prompt),TRN,AT(8,76),#ORIG(?INV:TAX:Prompt),#LINK(INV:TAX)
+         ENTRY(@N$-17.2),USE(INV:TAX),DECIMAL(12),AT(80,76,104,10),#ORIG(INV:TAX),#LINK(?INV:TAX:Prompt)
+         PROMPT('Total:'),USE(?INV:Total:Prompt),TRN,AT(8,90),#ORIG(?INV:Total:Prompt),#LINK(INV:Total)
+         ENTRY(@N$-17.2),USE(INV:Total),DECIMAL(12),AT(80,90,104,10),#ORIG(INV:Total),#LINK(?INV:Total:Prompt)
+         PROMPT('Note:'),USE(?INV:Note:Prompt),TRN,AT(8,104),#ORIG(?INV:Note:Prompt),#LINK(INV:Note)
+         ENTRY(@s255),USE(INV:Note),AT(80,104,270,10),#ORIG(INV:Note),#LINK(?INV:Note:Prompt)
+         PROMPT('Expand:'),USE(?INV:Expand:Prompt),TRN,AT(8,118),#ORIG(?INV:Expand:Prompt),#LINK(INV:Expand)
+         ENTRY(@n3),USE(INV:Expand),AT(80,118,40,10),#ORIG(INV:Expand),#LINK(?INV:Expand:Prompt)
+    END
+  END
+  BUTTON('&OK'),AT(252,136,49,14),USE(?OK),ICON('ok_32x32.png'),FLAT,MSG('Accept data and close the window'),TIP('Accept data and close the window'),LEFT,DEFAULT,#SEQ(2),#ORIG(?OK)
+  BUTTON('&Cancel'),AT(305,136,49,14),USE(?Cancel),ICON('cancel_32x32.png'),FLAT,MSG('Cancel operation'),TIP('Cancel operation'),LEFT,#SEQ(3),#ORIG(?Cancel)
+ END

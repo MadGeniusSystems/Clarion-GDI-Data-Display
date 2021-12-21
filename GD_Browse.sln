@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "GD_Browse", "GD_Browse.cwproj", "{2D477C92-AA85-476F-B2E1-BD6DF53BED1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2150E333-8FDC-42A3-9474-1A3956D46DE8}"
+	ProjectSection(SolutionItems) = postProject
+		GD_Browse.app = GD_Browse.app
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D477C92-AA85-476F-B2E1-BD6DF53BED1D}.Debug|Win32.Build.0 = Debug|Win32
+		{2D477C92-AA85-476F-B2E1-BD6DF53BED1D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2D477C92-AA85-476F-B2E1-BD6DF53BED1D}.Release|Win32.Build.0 = Release|Win32
+		{2D477C92-AA85-476F-B2E1-BD6DF53BED1D}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal
